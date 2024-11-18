@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- Rest of markup -->
+    <button onclick="onClickEvent()">Coba click</button>
+
+    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+    <script>
+      const socket = io()
+      socket.on('news', (data) => {
+        console.log('server : ', data)
+        // alert(data)
+      })
+
+      socket.on('my other event', (data) => {
+          socket.emit('my other event', { my: 'data' })
+      })
+
+      const onClickEvent = () => {
+        socket.emit('my other event', { my: 'data' })
+
+        socket.disconnect();
+      }
+
+      socket.on('disconnect', () => {
+        console.log('Client User disconnected');
+      });
+    </script>
+</body>
+</html>
